@@ -7,6 +7,7 @@ import com.example.springbootcache.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -55,6 +55,7 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    @CachePut(cacheNames = "book",key = "#dto.id")
     public Book update(BookUpdateDto dto) {
         Book book = getOne(dto.getId());
 
