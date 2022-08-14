@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -25,6 +27,7 @@ public class SpringBootCacheApplication {
             List<Book> books = IntStream.rangeClosed(1, 100).mapToObj(i -> Book.builder()
                     .name(book.title())
                     .author(book.author())
+                    .createdAt(LocalDateTime.now(Clock.systemDefaultZone()))
                     .genre(book.genre()).build()).toList();
             bookRepository.saveAll(books);
         };
