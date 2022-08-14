@@ -6,7 +6,7 @@ import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.cache.annotation.EnableCaching;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -14,13 +14,14 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootApplication
+@EnableCaching
 public class SpringBootCacheApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootCacheApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner runner(BookRepository bookRepository) {
         return (args) -> {
             com.github.javafaker.Book book = new Faker().book();
