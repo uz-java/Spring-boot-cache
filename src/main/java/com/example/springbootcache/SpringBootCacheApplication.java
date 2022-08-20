@@ -7,6 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.context.event.SimpleApplicationEventMulticaster;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -19,6 +23,14 @@ public class SpringBootCacheApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootCacheApplication.class, args);
+    }
+    @Bean(name = "simpleApplicationEventMulticaster")
+    public ApplicationEventMulticaster applicationEventMulticaster(){
+        SimpleApplicationEventMulticaster eventMulticaster=new SimpleApplicationEventMulticaster();
+        SimpleAsyncTaskExecutor taskExecutor=new SimpleAsyncTaskExecutor();
+        taskExecutor.setConcurrencyLimit(20);
+        eventMulticaster.setTaskExecutor(taskExecutor);
+        return eventMulticaster;
     }
 
     //@Bean
