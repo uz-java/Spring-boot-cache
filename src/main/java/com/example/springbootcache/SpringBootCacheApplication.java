@@ -31,6 +31,7 @@ public class SpringBootCacheApplication {
         taskExecutor.setConcurrencyLimit(20);
         eventMulticaster.setTaskExecutor(taskExecutor);
         return eventMulticaster;
+
     }
 
     //@Bean

@@ -17,5 +17,6 @@ public class GenericSpringEvent<T> {
     public GenericSpringEvent(T what, boolean success) {
         this.what = what;
         this.success = success;
+
     }
 }

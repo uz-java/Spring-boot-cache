@@ -17,6 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BookCreateDto {
     private String name;
+
     private String author;
     private String genre;
 }

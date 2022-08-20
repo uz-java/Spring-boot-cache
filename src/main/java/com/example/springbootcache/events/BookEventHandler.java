@@ -20,6 +20,7 @@ public class BookEventHandler {
         System.out.println("CREATING.............. " + bookCreateEvent.getWhat());
     }
 
+
     @EventListener(condition = "!#bookCreateEvent.success")
     @SneakyThrows
     public void createBookListener2(GenericSpringEvent<BookCreateEvent> bookCreateEvent){

@@ -20,6 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+
 @Data
 @Entity
 public class Book implements Serializable {
