@@ -3,11 +3,13 @@ package com.example.springbootcache.service;
 import com.example.springbootcache.domains.Book;
 import com.example.springbootcache.dto.BookCreateDto;
 import com.example.springbootcache.dto.BookUpdateDto;
+import com.example.springbootcache.events.BookCreateEvent;
 import com.example.springbootcache.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
@@ -26,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
+    private final ApplicationEventPublisher publisher;
 
     public List<Book> getAll() {
         return bookRepository.findAll();
@@ -52,7 +55,11 @@ public class BookService {
                 .genre(dto.getGenre())
                 .createdAt(LocalDateTime.now(Clock.systemDefaultZone()))
                 .build();
-        bookRepository.save(book);
+        Book save = bookRepository.save(book);
+        publisher.publishEvent(new BookCreateEvent(
+                save.getId(),
+                save.getName(),
+                save.getAuthor()));
     }
 
     public Book update(BookUpdateDto dto) {

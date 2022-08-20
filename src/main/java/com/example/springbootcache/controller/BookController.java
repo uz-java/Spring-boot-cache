@@ -22,6 +22,7 @@ public class BookController {
 
     private final BookService bookService;
 
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Book> books(){
@@ -50,6 +51,4 @@ public class BookController {
     public void delete(@PathVariable String id){
         bookService.delete(id);
     }
-
-
 }
